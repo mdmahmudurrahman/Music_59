@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Music_59</string>
+    <string name="title_top_100"><![CDATA[Top 100>]]></string>
+    <string name="title_genres"><![CDATA[Genres >]]></string>
+    <string name="title_home">Home</string>
+    <string name="title_user">User</string>
+    <string name="title_dowload">Dowload</string>
+    <string name="title_music_59">Music 59</string>
 </resources>
