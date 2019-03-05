@@ -6,4 +6,42 @@
     <string name="title_user">User</string>
     <string name="title_dowload">Dowload</string>
     <string name="title_music_59">Music 59</string>
+
+    <string-array name="key_genres">
+        <item>soundcloud:genres:all-music</item>
+        <item>soundcloud:genres:all-audio</item>
+        <item>soundcloud:genres:alternativerock</item>
+        <item>soundcloud:genres:classical</item>
+        <item>soundcloud:genres:country</item>
+        <item>soundcloud:genres:ambient</item>
+        <item>soundcloud:genres:danceedm</item>
+        <item>soundcloud:genres:dancehall</item>
+        <item>soundcloud:genres:deephouse</item>
+        <item>soundcloud:genres:disco</item>
+        <item>soundcloud:genres:drumbass</item>
+        <item>soundcloud:genres:dubstep</item>
+        <item>soundcloud:genres:electronic</item>
+        <item>soundcloud:genres:folksingersongwriter</item>
+        <item>soundcloud:genres:hiphoprap</item>
+        <item>soundcloud:genres:house</item>
+    </string-array>
+
+    <string-array name="name_genres">
+        <item>All music</item>
+        <item>All audio</item>
+        <item>Alternative Rock</item>
+        <item>Classical</item>
+        <item>Country</item>
+        <item>Ambient</item>
+        <item>Dance &amp; EDM</item>
+        <item>Dancehall</item>
+        <item>Deep House</item>
+        <item>Disco</item>
+        <item>Drum &amp; Bass</item>
+        <item>Dubstep</item>
+        <item>Electronic</item>
+        <item>Folk &amp; Singer-Songwriter</item>
+        <item>Hip-hop &amp; Rap</item>
+        <item>House</item>
+    </string-array>
 </resources>
