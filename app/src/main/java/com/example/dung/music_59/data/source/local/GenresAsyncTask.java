@@ -2,7 +2,6 @@ package com.example.dung.music_59.data.source.local;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.example.dung.music_59.R;
 import com.example.dung.music_59.data.model.Genre;
