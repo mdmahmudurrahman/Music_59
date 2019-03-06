@@ -1,5 +1,26 @@
 package com.example.dung.music_59.data.source.local;
 
-public class TrackLocalDataSource {
+import android.content.Context;
 
+import com.example.dung.music_59.data.source.TrackDataSource;
+
+public class TrackLocalDataSource implements TrackDataSource.local {
+    private static TrackLocalDataSource sInstance;
+    private Context mContext;
+
+    private TrackLocalDataSource(Context context) {
+        mContext = context;
+    }
+
+    public static TrackLocalDataSource getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new TrackLocalDataSource(context);
+        }
+        return sInstance;
+    }
+
+    @Override
+    public void getGenres(TrackDataSource.getGenresCallBack callBack) {
+        new GenresAsyncTask(mContext, callBack).execute();
+    }
 }

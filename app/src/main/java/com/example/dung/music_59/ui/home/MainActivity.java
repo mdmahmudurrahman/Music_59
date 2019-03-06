@@ -10,16 +10,15 @@ import android.support.v7.widget.Toolbar;
 
 import com.example.dung.music_59.R;
 import com.example.dung.music_59.ui.adapter.ViewPagerAdapter;
+import com.example.dung.music_59.ui.home.homefragment.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
-    private ViewPager mViewPagerHome;
-    private Toolbar mToolbarHome;
-    private TabLayout mTabLayoutHome;
     private static final int PAGE_LIMIT = 3;
     private static final int PAGE_HOME = 0;
     private static final int PAGE_USER = 1;
     private static final int PAGE_DOWLOAD = 2;
-
+    private ViewPager mViewPagerHome;
+    private TabLayout mTabLayoutHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setToolbar() {
+        Toolbar mToolbarHome = findViewById(R.id.tool_bar_home);
         setSupportActionBar(mToolbarHome);
         getSupportActionBar().setTitle(R.string.title_music_59);
     }
@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         mViewPagerHome = findViewById(R.id.view_pager);
-        mToolbarHome = findViewById(R.id.tool_bar_home);
         mTabLayoutHome = findViewById(R.id.tab_layout);
         mTabLayoutHome.setupWithViewPager(mViewPagerHome);
     }
