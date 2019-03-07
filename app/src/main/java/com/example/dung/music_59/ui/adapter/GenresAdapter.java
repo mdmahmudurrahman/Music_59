@@ -19,6 +19,7 @@ public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.ViewHolder
     private Context mContext;
     private List<Genre> mGenres;
     private LayoutInflater mInflater;
+    private onClickGenreListener mGenreListener;
 
     public GenresAdapter(Context context, List<Genre> genres) {
         mContext = context;
@@ -30,7 +31,7 @@ public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = mInflater.inflate(R.layout.custom_item_genres, viewGroup, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mGenreListener);
     }
 
     @Override
@@ -43,20 +44,36 @@ public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.ViewHolder
         return mGenres == null ? 0 : mGenres.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView mImageGenres;
         private TextView mTextNameGenres;
+        private onClickGenreListener mGenreListener;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, onClickGenreListener listener) {
             super(itemView);
             mImageGenres = itemView.findViewById(R.id.image_genres);
             mTextNameGenres = itemView.findViewById(R.id.text_name_genres);
+            mGenreListener = listener;
         }
 
         public void onBindView(Genre genre) {
             mTextNameGenres.setText(genre.getGenreName());
             Glide.with(itemView.getContext()).load(genre.getImageId()).into(mImageGenres);
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            mGenreListener.onGenreClick();
+        }
+    }
+
+    public interface onClickGenreListener{
+        void onGenreClick();
+    }
+
+    public void setGenreListener(onClickGenreListener listener){
+        mGenreListener = listener;
     }
 
     public void setGenres(List<Genre> genres) {

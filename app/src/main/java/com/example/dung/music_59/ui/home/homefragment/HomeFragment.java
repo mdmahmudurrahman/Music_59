@@ -16,11 +16,12 @@ import com.example.dung.music_59.data.source.TrackRepository;
 import com.example.dung.music_59.data.source.local.TrackLocalDataSource;
 import com.example.dung.music_59.data.source.remote.TrackRemoteDataSource;
 import com.example.dung.music_59.ui.adapter.GenresAdapter;
+import com.example.dung.music_59.ui.genres.GenresActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements HomeContract.View {
+public class HomeFragment extends Fragment implements HomeContract.View, GenresAdapter.onClickGenreListener {
     public static final int SPAN_COUNT = 2;
     private RecyclerView mRecyclerGenres;
     private List<Genre> mGenres;
@@ -39,6 +40,16 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         return view;
     }
 
+    @Override
+    public void showGenres(List<Genre> genres) {
+        mGenresAdapter.setGenres(genres);
+    }
+
+    @Override
+    public void onGenreClick() {
+        startActivity(GenresActivity.getIntent(getActivity()));
+    }
+
     private void initView(View view) {
         mRecyclerGenres = view.findViewById(R.id.recycler_genres);
         mGenres = new ArrayList<>();
@@ -49,11 +60,6 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         mRepository = TrackRepository.getInstance(TrackLocalDataSource.getInstance(getContext()),
                         TrackRemoteDataSource.getInstance(getContext()));
         mPresenter = new HomePresenter(this, mRepository);
-
-    }
-
-    @Override
-    public void showGenres(List<Genre> genres) {
-        mGenresAdapter.setGenres(genres);
+        mGenresAdapter.setGenreListener(this);
     }
 }
