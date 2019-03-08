@@ -48,6 +48,7 @@ public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.ViewHolder
         private ImageView mImageGenres;
         private TextView mTextNameGenres;
         private onClickGenreListener mGenreListener;
+        private Genre mGenre;
 
         public ViewHolder(@NonNull View itemView, onClickGenreListener listener) {
             super(itemView);
@@ -59,17 +60,18 @@ public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.ViewHolder
         public void onBindView(Genre genre) {
             mTextNameGenres.setText(genre.getGenreName());
             Glide.with(itemView.getContext()).load(genre.getImageId()).into(mImageGenres);
+            mGenre = genre;
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            mGenreListener.onGenreClick();
+            mGenreListener.onGenreClick(mGenre);
         }
     }
 
     public interface onClickGenreListener{
-        void onGenreClick();
+        void onGenreClick(Genre genre);
     }
 
     public void setGenreListener(onClickGenreListener listener){

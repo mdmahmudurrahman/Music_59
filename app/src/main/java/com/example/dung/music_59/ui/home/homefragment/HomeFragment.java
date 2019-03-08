@@ -46,8 +46,8 @@ public class HomeFragment extends Fragment implements HomeContract.View, GenresA
     }
 
     @Override
-    public void onGenreClick() {
-        startActivity(GenresActivity.getIntent(getActivity()));
+    public void onGenreClick(Genre genre) {
+        startActivity(GenresActivity.getIntent(getActivity(), genre));
     }
 
     private void initView(View view) {

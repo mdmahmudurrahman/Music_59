@@ -1,6 +1,9 @@
 package com.example.dung.music_59.data.model;
 
-public class Genre {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Genre implements Parcelable {
     private String mKey;
     private String mGenreName;
     private int mImageId;
@@ -10,6 +13,24 @@ public class Genre {
         mGenreName = genreName;
         mImageId = imageId;
     }
+
+    protected Genre(Parcel in) {
+        mKey = in.readString();
+        mGenreName = in.readString();
+        mImageId = in.readInt();
+    }
+
+    public static final Creator<Genre> CREATOR = new Creator<Genre>() {
+        @Override
+        public Genre createFromParcel(Parcel in) {
+            return new Genre(in);
+        }
+
+        @Override
+        public Genre[] newArray(int size) {
+            return new Genre[size];
+        }
+    };
 
     public String getKey() {
         return mKey;
@@ -33,5 +54,17 @@ public class Genre {
 
     public void setImageId(int imageId) {
         mImageId = imageId;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(mKey);
+        parcel.writeString(mGenreName);
+        parcel.writeInt(mImageId);
     }
 }

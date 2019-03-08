@@ -21,4 +21,9 @@ public class TrackRepository implements TrackDataSource.local, TrackDataSource.r
     public void getGenres(TrackDataSource.getGenresCallBack callBack) {
         mLocal.getGenres(callBack);
     }
+
+    @Override
+    public void getTrackByGenre(String url, TrackDataSource.getTrackCallBack callBack) {
+        mRemote.getTrackByGenre(url,callBack);
+    }
 }
