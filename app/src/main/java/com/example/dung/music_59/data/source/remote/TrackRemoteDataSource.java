@@ -1,6 +1,7 @@
 package com.example.dung.music_59.data.source.remote;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.dung.music_59.data.source.TrackDataSource;
 
@@ -19,4 +20,8 @@ public class TrackRemoteDataSource implements TrackDataSource.remote {
         return sInstance;
     }
 
+    @Override
+    public void getTrackByGenre(String url, TrackDataSource.getTrackCallBack callBack) {
+        new FetchTrackAsync(callBack).execute(url);
+    }
 }

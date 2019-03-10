@@ -1,7 +1,7 @@
 package com.example.dung.music_59.data.model;
 
-public class Track {
-    private int mId;
+public class Track  {
+    private long mId;
     private int mDuration;
     private String mTitle;
     private String mStreamUrl;
@@ -13,7 +13,7 @@ public class Track {
     private boolean mIsFavorite;
     private boolean mIsDowloadable;
 
-    public int getId() {
+    public long getId() {
         return mId;
     }
 
@@ -72,7 +72,7 @@ public class Track {
     }
 
     public static class Builder {
-        private int mId;
+        private long mId;
         private int mDuration;
         private String mTitle;
         private String mStreamUrl;
@@ -92,7 +92,7 @@ public class Track {
             return new Track(this);
         }
 
-        public Builder setId(int id) {
+        public Builder setId(long id) {
             mId = id;
             return this;
         }

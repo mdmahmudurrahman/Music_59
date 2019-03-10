@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.dung.music_59.R;
 import com.example.dung.music_59.data.model.Track;
 
@@ -29,7 +30,7 @@ public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = mInflater.inflate(R.layout.custom_item_genres, viewGroup, false);
+        View view = mInflater.inflate(R.layout.custom_item_track, viewGroup, false);
         return new ViewHolder(view, mTrackListener);
     }
 
@@ -43,13 +44,14 @@ public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.ViewHolder
         return mTracks == null ? 0 : mTracks.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView mImageTrack;
         private TextView mTextNameTrack;
         private TextView mTextNameArtist;
         private ImageView mImageFavorite;
         private ImageView mImageDowload;
         private onClickTrackListener mTrackListener;
+
         public ViewHolder(@NonNull View itemView, onClickTrackListener trackListener) {
             super(itemView);
             mImageTrack = itemView.findViewById(R.id.image_track);
@@ -64,6 +66,7 @@ public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.ViewHolder
             mTextNameTrack.setText(track.getTitle());
             mTextNameArtist.setText(track.getArtist());
             itemView.setOnClickListener(this);
+            Glide.with(itemView.getContext()).load(track.getArtworkUrl()).into(mImageTrack);
         }
 
         @Override
@@ -78,5 +81,10 @@ public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.ViewHolder
 
     public void setTrackListener(onClickTrackListener trackListener){
         mTrackListener = trackListener;
+    }
+
+    public void setTracks(List<Track> tracks) {
+        mTracks = tracks;
+        notifyDataSetChanged();
     }
 }
