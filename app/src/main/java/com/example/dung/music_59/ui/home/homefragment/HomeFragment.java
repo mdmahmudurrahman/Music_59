@@ -21,7 +21,8 @@ import com.example.dung.music_59.ui.genres.GenresActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements HomeContract.View, GenresAdapter.onClickGenreListener {
+public class HomeFragment extends Fragment
+        implements HomeContract.View, GenresAdapter.onClickGenreListener {
     public static final int SPAN_COUNT = 2;
     private RecyclerView mRecyclerGenres;
     private List<Genre> mGenres;
