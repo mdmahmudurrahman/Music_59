@@ -1,6 +1,9 @@
 package com.example.dung.music_59.data.model;
 
-public class Track  {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Track implements Parcelable {
     private long mId;
     private int mDuration;
     private String mTitle;
@@ -12,6 +15,32 @@ public class Track  {
     private String mArtworkUrl;
     private boolean mIsFavorite;
     private boolean mIsDowloadable;
+
+    protected Track(Parcel in) {
+        mId = in.readLong();
+        mDuration = in.readInt();
+        mTitle = in.readString();
+        mStreamUrl = in.readString();
+        mArtist = in.readString();
+        mGenre = in.readString();
+        mDowloadUrl = in.readString();
+        mDescription = in.readString();
+        mArtworkUrl = in.readString();
+        mIsFavorite = in.readByte() != 0;
+        mIsDowloadable = in.readByte() != 0;
+    }
+
+    public static final Creator<Track> CREATOR = new Creator<Track>() {
+        @Override
+        public Track createFromParcel(Parcel in) {
+            return new Track(in);
+        }
+
+        @Override
+        public Track[] newArray(int size) {
+            return new Track[size];
+        }
+    };
 
     public long getId() {
         return mId;
@@ -69,6 +98,26 @@ public class Track  {
         mArtworkUrl = builder.mArtworkUrl;
         mIsFavorite = builder.mIsFavorite;
         mIsDowloadable = builder.mIsDowloadable;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(mId);
+        parcel.writeInt(mDuration);
+        parcel.writeString(mTitle);
+        parcel.writeString(mStreamUrl);
+        parcel.writeString(mArtist);
+        parcel.writeString(mGenre);
+        parcel.writeString(mDowloadUrl);
+        parcel.writeString(mDescription);
+        parcel.writeString(mArtworkUrl);
+        parcel.writeByte((byte) (mIsFavorite ? 1 : 0));
+        parcel.writeByte((byte) (mIsDowloadable ? 1 : 0));
     }
 
     public static class Builder {
