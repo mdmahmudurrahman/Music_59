@@ -51,6 +51,7 @@ public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.ViewHolder
         private ImageView mImageFavorite;
         private ImageView mImageDowload;
         private onClickTrackListener mTrackListener;
+        private Track mTrack;
 
         public ViewHolder(@NonNull View itemView, onClickTrackListener trackListener) {
             super(itemView);
@@ -67,16 +68,17 @@ public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.ViewHolder
             mTextNameArtist.setText(track.getArtist());
             itemView.setOnClickListener(this);
             Glide.with(itemView.getContext()).load(track.getArtworkUrl()).into(mImageTrack);
+            mTrack = track;
         }
 
         @Override
         public void onClick(View view) {
-            mTrackListener.onTrackClick();
+            mTrackListener.onTrackClick(mTrack);
         }
     }
 
     public interface onClickTrackListener{
-        void onTrackClick();
+        void onTrackClick(Track track);
     }
 
     public void setTrackListener(onClickTrackListener trackListener){

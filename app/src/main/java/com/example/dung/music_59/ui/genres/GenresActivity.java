@@ -15,6 +15,7 @@ import com.example.dung.music_59.data.source.TrackRepository;
 import com.example.dung.music_59.data.source.local.TrackLocalDataSource;
 import com.example.dung.music_59.data.source.remote.TrackRemoteDataSource;
 import com.example.dung.music_59.ui.adapter.TracksAdapter;
+import com.example.dung.music_59.ui.playmusic.PlayMusicActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,8 +83,8 @@ public class GenresActivity extends AppCompatActivity
     }
 
     @Override
-    public void onTrackClick() {
-
+    public void onTrackClick(Track track) {
+        startActivity(PlayMusicActivity.getIntent(getApplicationContext(),track));
     }
 
     @Override
