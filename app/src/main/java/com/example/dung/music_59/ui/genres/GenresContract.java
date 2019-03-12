@@ -6,11 +6,11 @@ import com.example.dung.music_59.data.model.Track;
 import java.util.List;
 
 public interface GenresContract {
-    interface View{
+    interface View {
         void showTracks(List<Track> tracks);
     }
 
-    interface Presenter{
+    interface Presenter {
         void loadTracksByGenres(Genre genre);
     }
 }

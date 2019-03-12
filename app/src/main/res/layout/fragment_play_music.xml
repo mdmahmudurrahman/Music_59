@@ -58,7 +58,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_favorite" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/image_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -67,9 +67,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/image_next"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/image_previous" />
+        app:layout_constraintStart_toEndOf="@+id/image_previous"
+        android:background="@color/color_background_play"/>
 
-    <ImageView
+    <ImageButton
         android:id="@+id/image_previous"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -78,9 +79,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/image_play"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/image_shuffle" />
+        app:layout_constraintStart_toEndOf="@+id/image_shuffle"
+        android:background="@color/color_background_play"/>
 
-    <ImageView
+    <ImageButton
         android:id="@+id/image_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -89,7 +91,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/image_loop"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/image_play" />
+        app:layout_constraintStart_toEndOf="@+id/image_play"
+        android:background="@color/color_background_play"/>
 
     <ImageView
         android:id="@+id/image_loop"
