@@ -22,8 +22,8 @@ import java.util.List;
 
 public class GenresActivity extends AppCompatActivity
         implements TracksAdapter.onClickTrackListener, GenresContract.View {
-    private static final String BUNDLE_GRENRE = "bundle_genre";
-    private static final String EXTRA_BUNDLE = "extra_bundle";
+    private static final String BUNDLE_GRENRE = "BUNDLE_GRENRE";
+    private static final String EXTRA_BUNDLE = "EXTRA_BUNDLE";
     private ImageView mImageGenre;
     private RecyclerView mRecyclerTrack;
     private TracksAdapter mTracksAdapter;
@@ -31,6 +31,14 @@ public class GenresActivity extends AppCompatActivity
     private GenresContract.Presenter mPresenter;
     private TrackRepository mRepository;
     private Genre mGenre;
+
+    public static Intent getIntent(Context context, Genre genre) {
+        Intent intent = new Intent(context, GenresActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(BUNDLE_GRENRE, genre);
+        intent.putExtra(EXTRA_BUNDLE, bundle);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,21 +82,14 @@ public class GenresActivity extends AppCompatActivity
         mPresenter = new GenresPresenter(this, mRepository);
     }
 
-    public static Intent getIntent(Context context, Genre genre) {
-        Intent intent = new Intent(context, GenresActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(BUNDLE_GRENRE, genre);
-        intent.putExtra(EXTRA_BUNDLE, bundle);
-        return intent;
-    }
-
     @Override
     public void onTrackClick(Track track) {
-        startActivity(PlayMusicActivity.getIntent(getApplicationContext(),track));
+        startActivity(PlayMusicActivity.getIntent(getApplicationContext(), track, mTracks));
     }
 
     @Override
     public void showTracks(List<Track> tracks) {
+        mTracks = tracks;
         mTracksAdapter.setTracks(tracks);
     }
 }

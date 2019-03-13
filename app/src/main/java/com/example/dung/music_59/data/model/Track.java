@@ -1,5 +1,6 @@
 package com.example.dung.music_59.data.model;
 
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
