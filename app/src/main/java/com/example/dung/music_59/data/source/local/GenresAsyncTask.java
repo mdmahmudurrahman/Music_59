@@ -14,9 +14,9 @@ public class GenresAsyncTask extends AsyncTask<Void, Void, List<Genre>> {
     private static final String BASE_NAME_GENRE = "genres_%d";
     private static final String RAW = "raw";
     private Context mContext;
-    private TrackDataSource.getGenresCallBack mCallBack;
+    private TrackDataSource.onGetGenresCallBack mCallBack;
 
-    public GenresAsyncTask(Context context, TrackDataSource.getGenresCallBack callBack) {
+    public GenresAsyncTask(Context context, TrackDataSource.onGetGenresCallBack callBack) {
         mContext = context;
         mCallBack = callBack;
     }

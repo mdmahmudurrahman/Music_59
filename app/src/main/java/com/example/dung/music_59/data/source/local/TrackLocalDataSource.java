@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.example.dung.music_59.data.source.TrackDataSource;
 
-public class TrackLocalDataSource implements TrackDataSource.local {
+public class TrackLocalDataSource implements TrackDataSource.Local {
     private static TrackLocalDataSource sInstance;
     private Context mContext;
 
@@ -20,7 +20,7 @@ public class TrackLocalDataSource implements TrackDataSource.local {
     }
 
     @Override
-    public void getGenres(TrackDataSource.getGenresCallBack callBack) {
+    public void getGenres(TrackDataSource.onGetGenresCallBack callBack) {
         new GenresAsyncTask(mContext, callBack).execute();
     }
 }

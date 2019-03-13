@@ -17,7 +17,7 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void loadGenres() {
-        mRepository.getGenres(new TrackDataSource.getGenresCallBack() {
+        mRepository.getGenres(new TrackDataSource.onGetGenresCallBack() {
             @Override
             public void onGetGenresCompletion(List<Genre> genres) {
                 mView.showGenres(genres);

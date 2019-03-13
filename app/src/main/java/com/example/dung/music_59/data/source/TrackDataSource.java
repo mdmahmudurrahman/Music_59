@@ -6,20 +6,21 @@ import com.example.dung.music_59.data.model.Track;
 import java.util.List;
 
 public interface TrackDataSource {
-    interface getGenresCallBack{
+    interface onGetGenresCallBack {
         void onGetGenresCompletion(List<Genre> genres);
     }
 
-    interface getTrackCallBack{
+    interface onGetTrackCallBack {
         void onTrackLoaded(List<Track> tracks);
+
         void onFailure();
     }
 
-    interface local{
-        void getGenres(getGenresCallBack callBack);
+    interface Local {
+        void getGenres(onGetGenresCallBack callBack);
     }
 
-    interface remote{
-        void getTrackByGenre(String url,getTrackCallBack callBack);
+    interface Remote {
+        void getTrackByGenre(String url, onGetTrackCallBack callBack);
     }
 }

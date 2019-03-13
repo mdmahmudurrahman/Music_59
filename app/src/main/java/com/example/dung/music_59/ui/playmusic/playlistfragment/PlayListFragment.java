@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.dung.music_59.R;
 
-public class PlayListFragment extends Fragment {
+public class PlayListFragment extends Fragment  {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,

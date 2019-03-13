@@ -5,10 +5,9 @@ import com.example.dung.music_59.data.model.Track;
 import java.util.List;
 
 public interface IMediaPlayer {
-    interface OnFailure {
-        void onLoadFail(String msg);
-    }
     void create();
+
+    void start();
 
     void setTracksList(List<Track> tracks);
 
@@ -20,13 +19,13 @@ public interface IMediaPlayer {
 
     void previous();
 
-    void setTrackPosition(int pos);
-
     void setShuffle();
 
     void setRepeat();
 
     int getTrackPosition();
+
+    void setTrackPosition(int pos);
 
     int getTrackDuaration();
 
@@ -35,4 +34,8 @@ public interface IMediaPlayer {
     void seekTo(int pons);
 
     int getCurrentPosition();
+
+    Track getTrack();
+
+
 }
