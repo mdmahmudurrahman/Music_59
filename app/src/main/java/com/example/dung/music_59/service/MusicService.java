@@ -6,14 +6,17 @@ import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
 
+import com.example.dung.music_59.R;
 import com.example.dung.music_59.data.model.Track;
 import com.example.dung.music_59.mediaplayer.MediaManager;
 
 import java.util.List;
 
-public class MusicService extends Service implements MediaPlayer.OnCompletionListener {
-    private final IBinder mIBinder = new MusicBinder();
+public class MusicService extends Service implements
+        MediaPlayer.OnCompletionListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener {
+    private IBinder mIBinder;
     private MediaManager mMediaManager;
 
     @Nullable
@@ -24,7 +27,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
 
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {
-
+        nextTrack();
     }
 
     @Override
@@ -35,13 +38,20 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
     @Override
     public void onCreate() {
         super.onCreate();
+        mIBinder = new MusicBinder();
         mMediaManager = MediaManager.getInstance(this);
     }
 
-    public class MusicBinder extends Binder {
-        public MusicService getService() {
-            return MusicService.this;
-        }
+    @Override
+    public void onPrepared(MediaPlayer mediaPlayer) {
+        mMediaManager.start();
+    }
+
+    @Override
+    public boolean onError(MediaPlayer mediaPlayer, int i, int i1) {
+        Toast.makeText(this, getString(R.string.notify_play_track_error),
+                Toast.LENGTH_SHORT).show();
+        return true;
     }
 
     public void playMusic() {
@@ -50,10 +60,6 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
 
     public void setTrackList(List<Track> tracks) {
         mMediaManager.setTracksList(tracks);
-    }
-
-    public void setTrack(int trackIndex) {
-        mMediaManager.setTrackPosition(trackIndex);
     }
 
     public void nextTrack() {
@@ -81,7 +87,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
     }
 
     public int getPosition() {
-        return mMediaManager.getTrackPosition();
+        return mMediaManager.getCurrentPosition();
     }
 
     public int getTimeTotal() {
@@ -98,5 +104,19 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
 
     public int getCurrentPosition() {
         return mMediaManager.getCurrentPosition();
+    }
+
+    public Track getTrack() {
+        return mMediaManager.getTrack();
+    }
+
+    public void setTrack(int trackIndex) {
+        mMediaManager.setTrackPosition(trackIndex);
+    }
+
+    public class MusicBinder extends Binder {
+        public MusicService getService() {
+            return MusicService.this;
+        }
     }
 }

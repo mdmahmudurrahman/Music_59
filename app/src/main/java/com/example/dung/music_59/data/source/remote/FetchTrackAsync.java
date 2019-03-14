@@ -24,10 +24,10 @@ public class FetchTrackAsync extends AsyncTask<String, Void, List<Track>> {
     private String mRequestMethod = "GET";
     private static final String COLLECTION = "collection";
     private static final String TRACK = "track";
-    private TrackDataSource.getTrackCallBack mCallBack;
+    private TrackDataSource.onGetTrackCallBack mCallBack;
     protected Exception mException;
 
-    public FetchTrackAsync(TrackDataSource.getTrackCallBack callBack) {
+    public FetchTrackAsync(TrackDataSource.onGetTrackCallBack callBack) {
         mCallBack = callBack;
     }
 

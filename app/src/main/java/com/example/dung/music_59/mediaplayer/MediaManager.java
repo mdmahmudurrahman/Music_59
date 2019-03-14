@@ -12,17 +12,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MediaManager implements IMediaPlayer, MediaPlayer.OnCompletionListener {
-
+public class MediaManager implements IMediaPlayer {
+    private static MediaManager sInstance;
     private List<Track> mTracks;
     private MediaPlayer mMediaPlayer;
     private int mTrackPosition;
     private MusicService mMusicService;
-    private OnFailure mFailure;
-    private static MediaManager sInstance;
     private boolean mIsRestartNotifi;
     private boolean mIsShuffle;
     private boolean mIsRepeat;
+    private OnFailure mFailure;
+
+    public MediaManager(MusicService musicService) {
+        mMusicService = musicService;
+        mTracks = new ArrayList<>();
+        mMediaPlayer = new MediaPlayer();
+
+    }
 
     public static MediaManager getInstance(MusicService musicService) {
         if (sInstance == null) {
@@ -31,24 +37,20 @@ public class MediaManager implements IMediaPlayer, MediaPlayer.OnCompletionListe
         return sInstance;
     }
 
-    private MediaManager(MusicService musicService) {
-        mMusicService = musicService;
-        mTracks = new ArrayList<>();
-        mMediaPlayer = new MediaPlayer();
-        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-    }
-
     @Override
     public void create() {
         mMediaPlayer.reset();
+        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         try {
             mMediaPlayer.setDataSource(mMusicService, Uri.parse(mTracks.get(mTrackPosition).getStreamUrl()));
-            mMediaPlayer.prepare();
+            mMediaPlayer.setOnErrorListener(mMusicService);
+            mMediaPlayer.setOnCompletionListener(mMusicService);
+            mMediaPlayer.setOnPreparedListener(mMusicService);
+            mMediaPlayer.prepareAsync();
+
         } catch (IOException e) {
             mFailure.onLoadFail(e.getMessage());
         }
-        mMediaPlayer.start();
-        mMediaPlayer.setOnCompletionListener(this);
     }
 
     @Override
@@ -65,14 +67,17 @@ public class MediaManager implements IMediaPlayer, MediaPlayer.OnCompletionListe
 
     @Override
     public void next() {
-        if (mIsRepeat) {
-
-        } else if (mIsShuffle) {
+        if (mIsShuffle) {
             shuffle();
         } else {
             nextTrack();
         }
         create();
+    }
+
+    @Override
+    public void start() {
+        mMediaPlayer.start();
     }
 
     private void nextTrack() {
@@ -111,8 +116,18 @@ public class MediaManager implements IMediaPlayer, MediaPlayer.OnCompletionListe
     }
 
     @Override
-    public void setTrackPosition(int pos) {
-        mTrackPosition = pos;
+    public void seekTo(int pons) {
+        mMediaPlayer.seekTo(pons);
+    }
+
+    @Override
+    public int getCurrentPosition() {
+        return mMediaPlayer.getCurrentPosition();
+    }
+
+    @Override
+    public Track getTrack() {
+        return mTracks.get(mTrackPosition);
     }
 
     @Override
@@ -139,8 +154,13 @@ public class MediaManager implements IMediaPlayer, MediaPlayer.OnCompletionListe
     }
 
     @Override
+    public void setTrackPosition(int pos) {
+
+    }
+
+    @Override
     public int getTrackDuaration() {
-        return mMediaPlayer.getDuration();
+        return 0;
     }
 
     @Override
@@ -148,19 +168,7 @@ public class MediaManager implements IMediaPlayer, MediaPlayer.OnCompletionListe
         return mMediaPlayer.isPlaying();
     }
 
-    @Override
-    public void seekTo(int pons) {
-        mMediaPlayer.seekTo(pons);
+    interface OnFailure {
+        void onLoadFail(String msg);
     }
-
-    @Override
-    public int getCurrentPosition() {
-        return mMediaPlayer.getCurrentPosition();
-    }
-
-    @Override
-    public void onCompletion(MediaPlayer mediaPlayer) {
-        next();
-    }
-
 }
